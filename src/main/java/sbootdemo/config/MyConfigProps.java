@@ -5,7 +5,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties
 @Data
-
 public class MyConfigProps {
     private String town;
     private String whatTosay;
