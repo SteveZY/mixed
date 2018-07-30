@@ -73,19 +73,29 @@ public class BasicTests {
     }
 
     @Test
-    public void kmpPrefix() {
-        String p = "ababababca";
+    public void kmpPrefix() {//mainly compare to end of latest p[1..q]
+        String p = /*"aaab";*/"abcdefgh";
         int patLen = p.length();
-        ArrayList<Integer> pi = new ArrayList<>();
-        pi.add(0);
+        ArrayList<Integer> pi = new ArrayList<>();//pi's length is same as the length of P
+        //P[1..q] is the matched part that the given Pattern to target TEXT (index follows the book's style)
+        //Since Pattern can match the TEXT at any position,
+        //then we have to populate all the LENGTH 'k' of longest prefix (also the suffix of P[1..q]) for every prefix of P
+        //PI 函数中存放的是到当前位置q的子串p[0..q]的后缀、同时也是其最长前缀的 长度。当index从0开始时，其也正好对应于下一轮迭代时要跟p[q]比较的
+        //前缀的最后一个字符
+        //to get PI function. Then with the PI function, we can immediately know next start position in the TEXT to compare
         //pi[q] =k;
+        pi.add(0);//the first prefix only contains one character 'a' whose longest pefix's (also suffix of 'a') length is always 0
         int k = 0;
         for (int q = 1; q < patLen; q++) {//遍历 pattern
             while (k > 0 && p.charAt(k) != p.charAt(q)) {
-                k = pi.get(k);
+                //next char not match , go back based on k and verify again until find one or k not greater than 0
+                k = pi.get(k-1);
             }
-            if (p.charAt(k) == p.charAt(q)) {
-                ++k;
+            if (p.charAt(k) == p.charAt(q)) {//start point is the k=0, q=1 that make k just 1 less than q
+                //compare the the last char p[q] to p[k]
+                //Increase the length of the prefix for the new q if k th char equals to q th char
+                //the longest prefix is getting 1 char longer.
+                ++k;//And also for next time to retrieve (k+1)th character.
             }
             pi.add(q, k);
         }
@@ -103,7 +113,7 @@ public class BasicTests {
 
     @Test
     public void getVarMap() {
-        URL url = this.getClass().getResource("/application.properties");
+        URL url = this.getClass().getResource("/app.properties");
 //        URL tempUrl = this.getClass().getResource("/tempprops");
 
         File file = new File(url.getPath());
@@ -129,7 +139,6 @@ public class BasicTests {
         File tmpFile = new File(file.getParentFile().getAbsolutePath() + File.separator + "tempfile");//Will rename to the incoming file
         BufferedReader reader;
         BufferedWriter writer;
-//        Map<String, String> theMap = new HashMap<>();
         try {
             tmpFile.createNewFile();
             reader = new BufferedReader(new FileReader(file));

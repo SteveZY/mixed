@@ -13,7 +13,7 @@ public class MyConfigProps {
     private String fullname;//=${firstname} ${surname}
     private String lastvisit;//=1/1/2010
     private String welcome;//=Hi ${fullname} Thanks for visiting on ${lastvisit}
-
+    private HibernateProps hibernate;
 
 //    public String getTown() {
 //        return town;

@@ -1,0 +1,21 @@
+town:  SteveZzz
+whatTosay:  something to talk
+firstname: theFirstName
+surname: theVerySurname
+#server.port=8088
+my:
+  datasource:
+    url: jdbc:hsqldb:file:data/mydb
+    username: SA
+    password:
+    driverClassName: org.hsqldb.jdbcDriver
+spring:
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.HSQLDialect
+        format_sql: true
+        show_sql: true
+    hibernate:
+      ddl-auto: create
