@@ -47,7 +47,6 @@ public class MyAppTests {
         log.info("the props are {} ", myConfigProps);
         log.info("the dataSource are {} ", ds.getConnection().getSchema());
         Country country = Country.builder().name("countryName" + 11).flag("flag" + 11).build();
-//        countryRepositr
         Country ddd = countryRepository.save(country);
         for (int i = 0; i < 2; i++) {
 
